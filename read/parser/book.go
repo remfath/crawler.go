@@ -25,7 +25,7 @@ func ParseBookList(contents []byte, category string) engine.ParseResult {
 	for _, m := range match {
 		book := engine.Book{Title: m[2], Author: m[3], Desc: m[4], Url: "http://www.duokan.com" + m[1], Category: category}
 		result.Items = append(result.Items, book)
-		result.Requests = append(result.Requests, engine.Request{Url: "http://www.duokan.com" + m[1], ParserFunc: engine.NilParser})
+		//result.Requests = append(result.Requests, engine.Request{Url: "http://www.duokan.com" + m[1], ParserFunc: engine.NilParser})
 	}
 
 	return result

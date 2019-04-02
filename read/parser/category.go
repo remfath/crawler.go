@@ -3,6 +3,7 @@ package parser
 import (
 	"regexp"
 	"remfath.com/crawler/engine"
+	"strconv"
 )
 
 var categoryListRe = regexp.MustCompile(`<li class="level1">
@@ -20,13 +21,26 @@ func ParseCategoryList(contents []byte) engine.ParseResult {
 
 	var result engine.ParseResult
 	for _, m := range match {
-		category := m[2]
-		result.Items = append(result.Items, category)
+		categoryName := m[2]
+		categoryId := getCategoryId(m[1])
+		result.Items = append(result.Items, engine.Category{Id: categoryId, Name: categoryName})
 		req := engine.Request{Url: "http://www.duokan.com" + m[1], ParserFunc: func(c []byte) engine.ParseResult {
-			return ParseBookList(c, category)
+			return ParsePageList(c, categoryId, categoryName)
 		}}
 		result.Requests = append(result.Requests, req)
 	}
 
 	return result
+}
+
+var cidRe = regexp.MustCompile(`/list/([\d]+)-[\d]+`)
+
+func getCategoryId(path string) int {
+	match := cidRe.FindStringSubmatch(path)
+	idStr := match[1]
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		panic(err)
+	}
+	return id
 }

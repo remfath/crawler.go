@@ -21,3 +21,8 @@ type Book struct {
 	Desc     string
 	Category string
 }
+
+type Category struct {
+	Id   int
+	Name string
+}
