@@ -10,9 +10,14 @@ import (
 	"golang.org/x/text/transform"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
+var rateLimit = time.Tick(10 * time.Millisecond)
+
 func Fetch(url string) ([]byte, error) {
+	<-rateLimit
+
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
