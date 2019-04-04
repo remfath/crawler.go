@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"github.com/icrowley/fake"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/unicode"
@@ -18,7 +19,7 @@ func Fetch(url string) ([]byte, error) {
 	if err != nil {
 		panic(err)
 	}
-	req.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36")
+	req.Header.Add("User-Agent", fake.UserAgent())
 	resp, err := client.Do(req)
 	if resp == nil {
 		panic(errors.New("empty"))
