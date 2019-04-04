@@ -2,6 +2,7 @@ package engine
 
 import (
 	"log"
+	"remfath.com/crawler/model"
 )
 
 type ConcurrentEngine struct {
@@ -32,7 +33,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 		result := <-out
 
 		for _, item := range result.Items {
-			if book, ok := item.(Book); ok {
+			if book, ok := item.(model.Book); ok {
 				log.Printf("Got item #%d: %#v\n", cnt, book)
 				cnt++
 			}

@@ -3,6 +3,7 @@ package parser
 import (
 	"regexp"
 	"remfath.com/crawler/engine"
+	"remfath.com/crawler/model"
 	"strconv"
 )
 
@@ -23,7 +24,7 @@ func ParseCategoryList(contents []byte) engine.ParseResult {
 	for _, m := range match {
 		categoryName := m[2]
 		categoryId := getCategoryId(m[1])
-		result.Items = append(result.Items, engine.Category{Id: categoryId, Name: categoryName})
+		result.Items = append(result.Items, model.Category{Id: categoryId, Name: categoryName})
 		req := engine.Request{Url: "http://www.duokan.com" + m[1], ParserFunc: func(c []byte) engine.ParseResult {
 			return ParsePageList(c, categoryId, categoryName)
 		}}
