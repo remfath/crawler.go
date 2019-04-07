@@ -2,8 +2,8 @@ package parser
 
 import (
 	"regexp"
-	"remfath.com/crawler/engine"
-	"remfath.com/crawler/model"
+	"remfath.com/crawler.go/engine"
+	"remfath.com/crawler.go/model"
 	"strconv"
 )
 

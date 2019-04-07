@@ -1,9 +1,9 @@
 package main
 
 import (
-	"remfath.com/crawler/engine"
-	"remfath.com/crawler/read/parser"
-	"remfath.com/crawler/scheduler"
+	"remfath.com/crawler.go/engine"
+	"remfath.com/crawler.go/read/parser"
+	"remfath.com/crawler.go/scheduler"
 )
 
 func main() {

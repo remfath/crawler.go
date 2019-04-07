@@ -3,7 +3,7 @@ package parser
 import (
 	"fmt"
 	"regexp"
-	"remfath.com/crawler/engine"
+	"remfath.com/crawler.go/engine"
 	"strconv"
 )
 

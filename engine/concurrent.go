@@ -2,7 +2,7 @@ package engine
 
 import (
 	"log"
-	"remfath.com/crawler/model"
+	"remfath.com/crawler.go/model"
 )
 
 type ConcurrentEngine struct {
