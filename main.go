@@ -11,8 +11,8 @@ func main() {
 	request := engine.Request{Url: url, ParserFunc: parser.ParseCategoryList}
 
 	e := engine.ConcurrentEngine{
-		Scheduler: &scheduler.SimpleScheduler{},
-		WorkCount: 10,
+		Scheduler: &scheduler.QueuedScheduler{},
+		WorkCount: 100,
 	}
 	e.Run(request)
 }
