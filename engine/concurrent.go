@@ -1,13 +1,9 @@
 package engine
 
-import (
-	"log"
-	"remfath.com/crawler.go/model"
-)
-
 type ConcurrentEngine struct {
 	Scheduler Scheduler
 	WorkCount int
+	ItemChan  chan interface{}
 }
 
 type Scheduler interface {
@@ -33,15 +29,13 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 		e.Scheduler.Submit(r)
 	}
 
-	cnt := 0
 	for {
 		result := <-out
 
 		for _, item := range result.Items {
-			if book, ok := item.(model.Book); ok {
-				log.Printf("Got item #%d: %#v\n", cnt, book)
-				cnt++
-			}
+			go func() {
+				e.ItemChan <- item
+			}()
 		}
 
 		for _, request := range result.Requests {

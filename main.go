@@ -2,6 +2,7 @@ package main
 
 import (
 	"remfath.com/crawler.go/engine"
+	"remfath.com/crawler.go/persist"
 	"remfath.com/crawler.go/read/parser"
 	"remfath.com/crawler.go/scheduler"
 )
@@ -13,6 +14,7 @@ func main() {
 	e := engine.ConcurrentEngine{
 		Scheduler: &scheduler.QueuedScheduler{},
 		WorkCount: 100,
+		ItemChan:  persist.ItemSaver(),
 	}
 	e.Run(request)
 }
