@@ -1,10 +1,10 @@
 package main
 
 import (
-	"remfath.com/crawler.go/engine"
-	"remfath.com/crawler.go/persist"
-	"remfath.com/crawler.go/read/parser"
-	"remfath.com/crawler.go/scheduler"
+	"github.com/remfath/crawler.go/engine"
+	"github.com/remfath/crawler.go/persist"
+	"github.com/remfath/crawler.go/read/parser"
+	"github.com/remfath/crawler.go/scheduler"
 )
 
 func main() {

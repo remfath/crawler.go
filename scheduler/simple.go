@@ -1,6 +1,6 @@
 package scheduler
 
-import "remfath.com/crawler.go/engine"
+import "github.com/remfath/crawler.go/engine"
 
 type SimpleScheduler struct {
 	workChan chan engine.Request

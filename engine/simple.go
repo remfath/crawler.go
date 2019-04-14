@@ -3,7 +3,7 @@ package engine
 import (
 	"fmt"
 	"log"
-	"remfath.com/crawler.go/fetcher"
+	"github.com/remfath/crawler.go/fetcher"
 )
 
 type SimpleEngine struct {

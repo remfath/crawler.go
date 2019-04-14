@@ -2,7 +2,7 @@ package persist
 
 import (
 	"fmt"
-	"remfath.com/crawler.go/model"
+	"github.com/remfath/crawler.go/model"
 )
 
 var Items map[string]struct{}
