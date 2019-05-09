@@ -1,8 +1,10 @@
 package persist
 
 import (
+	"context"
 	"fmt"
-	"github.com/remfath/crawler.go/model"
+	"github.com/olivere/elastic"
+	"github.com/remfath/crawler.go/engine"
 )
 
 var Items map[string]struct{}
@@ -11,18 +13,38 @@ func init() {
 	Items = make(map[string]struct{})
 }
 
-func ItemSaver() chan interface{} {
-	out := make(chan interface{})
+func ItemSaver() chan engine.Item {
+	out := make(chan engine.Item)
 	go func() {
 		for {
 			item := <-out
-			if book, ok := item.(model.Book); ok {
-				if _, ok := Items[book.Title]; !ok {
-					fmt.Printf("%s\n", book.Title)
-					Items[book.Title] = struct{}{}
-				}
+			respId, err := save(item)
+			if err != nil {
+				fmt.Printf("ERR: %s\n", err)
+			} else {
+				fmt.Printf("SUC: %s\n", respId)
 			}
 		}
 	}()
 	return out
+}
+
+func save(item engine.Item) (string, error) {
+	client, err := elastic.NewClient(elastic.SetSniff(false))
+	if err != nil {
+		return "", err
+	}
+
+	resp, err := client.Index().
+		Index(item.Index).
+		Type(item.Type).
+		Id(item.Id).
+		BodyJson(item).
+		Do(context.Background())
+
+	if err != nil {
+		return "", err
+	}
+
+	return resp.Id, nil
 }
